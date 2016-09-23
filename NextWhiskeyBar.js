@@ -39,10 +39,15 @@ var server = http.createServer(function (req, res) {
                     fs.createReadStream(filePath).pipe(res);
                 }
             });
+        } else {
+            res.writeHead(400, {'Content-type':'text/html'});
+            res.end('Requested format is not supported');
         }
 
         
     } else {
+        res.writeHead(405, {'Content-type':'text/html'});
+        res.end('Requested method is not supported');
         console.log('Unsupported request method');
     }
     
