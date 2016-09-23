@@ -1,0 +1,21 @@
+{
+    "name": "NextWhiskeyBar",
+    "description": "",
+    "version": "0.0.1",
+    "main": "./NextWhiskeyBar.js",
+    "author": {
+        "name": "Andrii Krymets",
+        "email": "andrii.krymets@finstar.com"
+    },
+    "keywords": [],
+    "licenses": {
+        "type": "none"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/akrymets/NextWhiskeyBar.git"
+    },
+    "bugs": {
+        "url": "http://github.com/akrymets/NextWhiskeyBar/issues"
+    }
+}
