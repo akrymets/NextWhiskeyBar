@@ -7,7 +7,7 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
-
+var morgan = require('morgan');
 var express = require('express');
 
 var port = 3000;
@@ -15,16 +15,24 @@ var host = 'localhost';
 
 var app = express();
 
-app.use(function(req, res, next){
-    console.log('String a');
-    
-    res.writeHead(200,{'Content-type':'text/html'});
-    res.end('String A');
+app.use(morgan('combined'));
+
+//app.use(function(req, res, next){
+//    console.log('String a');
+//    
+//    res.writeHead(200,{'Content-type':'text/html'});
+//    res.end('String A');
+//});
+
+app.get('/', function(req, res){
+    res.send('hello!!!');
 });
 
-var server = http.createServer(app);
+app.post('/', function(req, res){
+    res.send('hello for post requesters!!!');
+});
 
-server.listen(port, host, 'Server is up');
+app.listen(port, host, 'Server is up');
 
 //var server = http.createServer(function (req, res) {
 //    res.writeHead(200, {
