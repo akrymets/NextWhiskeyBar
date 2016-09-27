@@ -19,7 +19,17 @@
     "url": "http://github.com/akrymets/NextWhiskeyBar/issues"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
+    "errorhandler": "^1.4.3",
     "express": "^4.14.0",
     "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2",
+    "jshint": "^2.6.0"
+  },
+  "scripts": {
+    "start": "node NextWhiskeyBar.js",
+    "test": "node_modules/.bin/jshint NextWhiskeyBar.js && mocha test"
   }
 }

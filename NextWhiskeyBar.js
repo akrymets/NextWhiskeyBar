@@ -4,75 +4,57 @@
  * and open the template in the editor.
  */
 
-var http = require('http');
 var fs = require('fs');
 var path = require('path');
 var morgan = require('morgan');
 var express = require('express');
+var errorHandler = require('errorhandler');
+var bodyParser = require('body-parser');
 
 var port = 3000;
 var host = 'localhost';
 
 var app = express();
 
-app.use(morgan('combined'));
+app.use(morgan('dev'));
+app.use(bodyParser.json());
 
-//app.use(function(req, res, next){
-//    console.log('String a');
-//    
-//    res.writeHead(200,{'Content-type':'text/html'});
-//    res.end('String A');
-//});
-
-app.get('/', function(req, res){
-    res.send('hello!!!');
+app.get('/places', function(req, res, next){
+    res.send('Will list info about all the places in the database');
 });
 
-app.post('/', function(req, res){
-    res.send('hello for post requesters!!!');
+app.get('/places/:place_id', function(req, res, next){
+    res.send('Will return a short description of a particular place with id ' + req.params.place_id);
 });
+
+app.post('/places', function(req, res, next){
+    res.send('Will add a new place to the DB\n{"name":"place_name","address":"place_address","info":"some_notes"}');
+});
+
+app.put('/places/:place_id', function(req, res, next){
+    res.send('Will edit the ' + req.params.place_id + ' place\'s info\n{"id":"place_id","name":"place_name","address":"place_address","info":"some_notes"}');
+});
+
+app.delete('/places/:place_id', function(req, res, next){
+    res.send('Will delete the ' + req.params.place_id + ' place');
+});
+
+app.get('/vote', function(req, res, next){
+    res.send('Will return current intermediate result of the today vote');
+});
+
+app.post('/vote', function(req, res, next){
+    res.send('Vote for a concrete place for today');
+});
+
+app.get('/history', function(req, res, next){
+    res.send('Will return history of our choises of the last week');
+});
+
+app.get('/log', function(req, res, next){
+    res.send('Will log all requests to the app');
+});
+
+app.use(express.static(__dirname + '/public'));
 
 app.listen(port, host, 'Server is up');
-
-//var server = http.createServer(function (req, res) {
-//    res.writeHead(200, {
-//        'Content-Type': 'text/plain; charset=UTF-8'
-//    });
-//
-//    console.log('Request: ' + req.url);
-//
-//    if (req.method == 'GET') {
-//        
-//        var url;
-//        
-//        if (req.url == '/') url = '/index.html';
-//        else url = req.url;
-//
-//        var filePath = path.resolve('./public' + url);
-//        var fileExt = path.extname(filePath);
-//        
-//        if (fileExt == '.html') {
-//            fs.exists(filePath, function(exists){
-//                if (!exists) {
-//                    res.writeHead(404, {'Content-type':'text/html'});
-//                    res.end('Requested page ' + url + ' is not found');
-//                } else {
-//                    res.writeHead(200, {'Content-type':'text/html'});
-//                    fs.createReadStream(filePath).pipe(res);
-//                }
-//            });
-//        } else {
-//            res.writeHead(400, {'Content-type':'text/html'});
-//            res.end('Requested format is not supported');
-//        }
-//
-//        
-//    } else {
-//        res.writeHead(405, {'Content-type':'text/html'});
-//        res.end('Requested method is not supported');
-//        console.log('Unsupported request method');
-//    }
-//    
-//});
-//
-//server.listen(port, host, 'server started on ' + host + ":" + port);
