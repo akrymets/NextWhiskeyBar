@@ -16,7 +16,7 @@ var host = 'localhost';
 
 var app = express();
 
-app.use(morgan('dev'));
+app.use(morgan('short'));
 app.use(bodyParser.json());
 
 app.get('/places', function(req, res, next){
@@ -28,7 +28,7 @@ app.get('/places/:place_id', function(req, res, next){
 });
 
 app.post('/places', function(req, res, next){
-    res.send('Will add a new place to the DB\n{"name":"place_name","address":"place_address","info":"some_notes"}');
+    res.send('Will add a new place to the DB\nWill receive parameters ' + req.body.name);
 });
 
 app.put('/places/:place_id', function(req, res, next){
