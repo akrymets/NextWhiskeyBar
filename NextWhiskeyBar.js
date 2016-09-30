@@ -10,6 +10,11 @@ var morgan = require('morgan');
 var express = require('express');
 var errorHandler = require('errorhandler');
 var bodyParser = require('body-parser');
+var mongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+
+// MongoDB connection url
+var url = 'mongodb://localhost:27017/nwb';
 
 var port = 3000;
 var host = 'localhost';
@@ -20,7 +25,18 @@ app.use(morgan('short'));
 app.use(bodyParser.json());
 
 app.get('/places', function(req, res, next){
+    mongoClient.connect(url, function(err, db){
+        assert.equal(err, null);
+        console.log('Connected to the MongoDB server');
+    
+        var collection = db.collection('places');
+        
+        collection.select();
+        
+    });
+    
     res.send('Will list info about all the places in the database');
+    
 });
 
 app.get('/places/:place_id', function(req, res, next){
