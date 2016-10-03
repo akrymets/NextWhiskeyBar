@@ -25,17 +25,24 @@ app.use(morgan('short'));
 app.use(bodyParser.json());
 
 app.get('/places', function(req, res, next){
+    
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
         console.log('Connected to the MongoDB server');
     
         var collection = db.collection('places');
         
-        collection.select();
-        
+        collection.find({}).toArray(function (err, docs) {
+            assert.equal(err, null);
+            res.writeHead(200,{"Content-type":"text/html","charset":"utf-8:"});
+            for (var i = 0; i < docs.length; i++) {
+                res.write(docs[i].name + '<br>');
+            }
+            res.end();
+        });
     });
     
-    res.send('Will list info about all the places in the database');
+//    res.end('Will list info about all the places in the database');
     
 });
 
