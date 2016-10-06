@@ -12,6 +12,7 @@ var errorHandler = require('errorhandler');
 var bodyParser = require('body-parser');
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
+var dbops = require('./modules/dbops');
 
 // MongoDB connection url
 var url = 'mongodb://localhost:27017/nwb';
@@ -29,17 +30,13 @@ app.get('/places', function(req, res, next){
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
         console.log('Connected to the MongoDB server');
-    
-        var collection = db.collection('places');
-        
-        collection.find({}).toArray(function (err, docs) {
-            assert.equal(err, null);
-            res.writeHead(200,{"Content-type":"text/html","charset":"utf-8:"});
-            for (var i = 0; i < docs.length; i++) {
-                res.write(docs[i].name + '<br>');
-            }
-            res.end();
+
+        dbops.findDocuments(db, 'places', function(docs){
+            res.writeHead(200,{"Content-type":"application/json","charset":"utf-8:"});
+            res.end(docs.toString());
         });
+       
+        
     });
     
 //    res.end('Will list info about all the places in the database');
@@ -51,6 +48,16 @@ app.get('/places/:place_id', function(req, res, next){
 });
 
 app.post('/places', function(req, res, next){
+
+    mongoClient.connect(url, function(err, db){
+        assert.equal(err, null);
+        console.log('Connected to the MongoDB server');
+        
+//        res.writeHead(200, {"Content-type":"text/html"});
+        console.log(req.body);
+        //dbops.insertDocument(db, req.body.name);
+        
+    });
     res.send('Will add a new place to the DB\nWill receive parameters ' + req.body.name);
 });
 
