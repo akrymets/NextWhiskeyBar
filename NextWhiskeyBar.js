@@ -36,16 +36,19 @@ app.get('/places', function(req, res, next){
         console.log('Connected to the MongoDB server');
 
         dbops.findDocuments(db, 'places', function(docs){
-//            res.writeHead(200,{"Content-type":"application/json","charset":"utf-8:"});
-            res.render('places', {places: docs.toString()});
+        
+          var res_string = '';        
+    
+          for (var i = 0; i < docs.length; i++) {
+            res_string += docs[i]['_id'] + ': ' + docs[i]['name'] + '\n';
+          }
+          
+          res.render('places', {places: res_string});
         });
         
         db.close();
         
     });
-    
-//    res.end('Will list info about all the places in the database');
-    
 });
 
 app.get('/places/:place_id', function(req, res, next){
