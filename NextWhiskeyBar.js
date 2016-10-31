@@ -32,8 +32,13 @@ app.get('/places', function(req, res, next){
         console.log('Connected to the MongoDB server');
 
         dbops.findDocuments(db, 'places', function(docs){
-            res.writeHead(200,{"Content-type":"application/json","charset":"utf-8:"});
-            res.end(docs.toString());
+            res.writeHead(200,{"Content-type":"application/json","charset":"utf-8"});
+            
+            for (var i = 0; i < docs.length; i++) {
+                res.write(docs[i]['_id'] + ': ' + docs[i]['name'] + '\n');
+            }
+            
+            res.end();
         });
        
         
