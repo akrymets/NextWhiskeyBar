@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 var mongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var dbops = require('./modules/dbops');
+var pug = require('pug');
 
 // MongoDB connection url
 var url = 'mongodb://localhost:27017/nwb';
@@ -21,6 +22,9 @@ var port = 3000;
 var host = 'localhost';
 
 var app = express();
+
+app.set('views', './templates');
+app.set('view engine', 'pug');
 
 app.use(morgan('short'));
 app.use(bodyParser.json());
@@ -32,10 +36,11 @@ app.get('/places', function(req, res, next){
         console.log('Connected to the MongoDB server');
 
         dbops.findDocuments(db, 'places', function(docs){
-            res.writeHead(200,{"Content-type":"application/json","charset":"utf-8:"});
-            res.end(docs.toString());
+//            res.writeHead(200,{"Content-type":"application/json","charset":"utf-8:"});
+            res.render('places', {places: docs.toString()});
         });
-       
+        
+        db.close();
         
     });
     
@@ -51,7 +56,7 @@ app.post('/places', function(req, res, next){
 
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
-        console.log('Connected to the MongoDB server');
+        consolee.log('Connected to the MongoDB server');
         
 //        res.writeHead(200, {"Content-type":"text/html"});
         console.log(req.body);
