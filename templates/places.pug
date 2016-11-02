@@ -2,5 +2,7 @@ html
     head
         title Places page
     body
-        h1 List of known places
-        div= places
+        h4 List of known places
+        ul
+            each val in places
+                li= val['name']
