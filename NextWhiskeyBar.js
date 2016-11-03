@@ -37,13 +37,7 @@ app.get('/places', function(req, res, next){
 
         dbops.findDocuments(db, 'places', function(docs){
         
-          var res_string = '';        
-    
-          for (var i = 0; i < docs.length; i++) {
-            res_string += docs[i]['_id'] + ': ' + docs[i]['name'] + '\n';
-          }
-          
-          res.render('places', {places: res_string});
+          res.render('places', {places: docs});
         });
         
         db.close();
