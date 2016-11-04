@@ -1,7 +1,6 @@
 ## NextWhiskeyBar
-==============  
-
-#### This is NextWhiskeyBar.
+-------------
+#### This is NextWhiskeyBar
 
 GET /  
 GET /vote  
