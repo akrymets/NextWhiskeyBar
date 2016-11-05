@@ -8,32 +8,17 @@ html
         each place in places
             li= place['name']
         h2 Add a new place
-        form(method="post")
+        form(
+            method="post"
+            action="/places"
+            )
             fieldset
-                legend General
+                legend Place details
                 p
-                label(for="user[name]") Username:
-                    input(type="text", name="user[name]", value=user.name)
+                label(for="place[name]") Place name:
+                    input(type="text", name="place[name]", value="")
                 p
-                label(for="user[email]") Email:
-                    input(type="text", name="user[email]", value=user.email)
-                    .tip.
-                    Enter a valid 
-                    email address 
-                    such as <em>tj@vision-media.ca</em>.
-            fieldset
-                legend Location
-                p
-                label(for="user[city]") City:
-                    input(type="text", name="user[city]", value=user.city)
-                p
-                select(name="user[province]")
-                    option(value="") -- Select Province --
-                    option(value="AB") Alberta
-                    option(value="BC") British Columbia
-                    option(value="SK") Saskatchewan
-                    option(value="MB") Manitoba
-                    option(value="ON") Ontario
-                    option(value="QC") Quebec
+                label(for="place[distance]") Distance (km):
+                    input(type="text", name="place[distance]", value="")
             p.buttons
                 input(type="submit", value="Save")
