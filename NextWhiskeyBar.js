@@ -30,35 +30,41 @@ app.use(morgan('short'));
 app.use(bodyParser.json());
 
 app.get('/places', function(req, res, next){
-    
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
         console.log('Connected to the MongoDB server');
-
         dbops.findDocuments(db, 'places', function(docs){
           res.render('places', {places: docs});
         });
-        
         db.close();
-        
     });
 });
 
 app.get('/places/:place_id', function(req, res, next){
+    // mongoClient.connect(url, function(err, db){
+    //     assert.equal(err, null);
+    //     console.log('Connected to the MongoDB server');    
+    //         dbops.insertDocumentTest(db, function(){});
+    //     db.close();
+    // });
     res.send('Will return a short description of a particular place with id ' + req.params.place_id);
 });
 
 app.post('/places', function(req, res, next){
-
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
         consolee.log('Connected to the MongoDB server');
         
-        console.log(req.body);
-        dbops.insertDocument(db, places, {"name": plc[name]}, clbck);
-        
+        var collection = "places";
+        var document = {"name": "TEST"};
+
+        dbops.insertDocument(db, collection, document, function(){
+            dbops.findDocuments(db, collection, function(docs){
+                res.render('places', {places: docs});
+            });
+        });
+        db.close();
     });
-    res.send('Will add a new place to the DB\nWill receive parameters ' + req.body.name);
 });
 
 app.put('/places/:place_id', function(req, res, next){
