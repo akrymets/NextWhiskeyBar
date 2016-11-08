@@ -6,7 +6,8 @@ html
         h2 List of known places
         ul
         each place in places
-            li= place['name']
+            li
+                a(href='/places/' + place['_id'])= place['name']
         h2 Add a new place
         form(
             method="post"
