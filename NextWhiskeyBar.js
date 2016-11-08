@@ -54,9 +54,8 @@ app.post('/places', function(req, res, next){
         assert.equal(err, null);
         consolee.log('Connected to the MongoDB server');
         
-//        res.writeHead(200, {"Content-type":"text/html"});
         console.log(req.body);
-        //dbops.insertDocument(db, req.body.name);
+        dbops.insertDocument(db, places, {"name": plc[name]}, clbck);
         
     });
     res.send('Will add a new place to the DB\nWill receive parameters ' + req.body.name);
