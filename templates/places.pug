@@ -11,17 +11,17 @@ html
                 a(href='/places/' + place['_id'])= place['name']
         h2 Add a new place
         form(action='/places', method='POST')
-        table
-            tr
-                td
-                    label(for='name') Name
-                td        
-                    input(type='edit', name='name', placeholder='Input name')
-            tr
-                td
-                    label(for='dist') Dist
-                td
-                    input(type='edit', name='dist', placeholder='Input distance')
-            tr
-                td(colspan=2)
-                    input(type='submit', value='Save')
+            table
+                tr
+                    td
+                        label(for='name') Name
+                    td        
+                        input(type='edit', name='name', placeholder='Input name')
+                tr
+                    td
+                        label(for='dist') Dist
+                    td
+                        input(type='edit', name='dist', placeholder='Input distance')
+                tr
+                    td(colspan=2)
+                        input(type='submit', value='Save')

@@ -50,9 +50,11 @@ app.post('/places', function(req, res, next){
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
         consolee.log('Connected to the MongoDB server');
+
+        var vars = req.post.params;
         
         var collection = "places";
-        var document = {"name": "TEST"};
+        var document = {"name": vars['name']};
 
         dbops.insertDocument(db, collection, document, function(){
             // dbops.findDocuments(db, collection, function(docs){
