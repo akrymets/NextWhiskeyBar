@@ -29,6 +29,7 @@ app.set('view engine', 'pug');
 app.use(morgan('short'));
 app.use(bodyParser.json());
 
+// Listing all the places stored in the db
 app.get('/places', function(req, res, next){
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
@@ -41,15 +42,10 @@ app.get('/places', function(req, res, next){
 });
 
 app.get('/places/:place_id', function(req, res, next){
-    // mongoClient.connect(url, function(err, db){
-    //     assert.equal(err, null);
-    //     console.log('Connected to the MongoDB server');    
-    //         dbops.insertDocumentTest(db, function(){});
-    //     db.close();
-    // });
     res.send('Will return a short description of a particular place with id ' + req.params.place_id);
 });
 
+// Adding new places to the db
 app.post('/places', function(req, res, next){
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
@@ -59,9 +55,10 @@ app.post('/places', function(req, res, next){
         var document = {"name": "TEST"};
 
         dbops.insertDocument(db, collection, document, function(){
-            dbops.findDocuments(db, collection, function(docs){
-                res.render('places', {places: docs});
-            });
+            // dbops.findDocuments(db, collection, function(docs){
+            //     res.render('places', {places: docs});
+            // });
+            console.log('New document added to the db');
         });
         db.close();
     });
