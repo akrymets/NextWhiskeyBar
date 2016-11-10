@@ -10,7 +10,7 @@ html
             li
                 a(href='/places/' + place['_id'])= place['name']
         h2 Add a new place
-        form(action='/places', method='POST')
+        form(action='/places/add', method='POST')
             table
                 tr
                     td

@@ -28,6 +28,7 @@ app.set('view engine', 'pug');
 
 app.use(morgan('short'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Listing all the places stored in the db
 app.get('/places', function(req, res, next){
@@ -46,21 +47,17 @@ app.get('/places/:place_id', function(req, res, next){
 });
 
 // Adding new places to the db
-app.post('/places', function(req, res, next){
+app.post('/places/add', function(req, res, next){
     mongoClient.connect(url, function(err, db){
         assert.equal(err, null);
-        consolee.log('Connected to the MongoDB server');
+        console.log('Connected to the MongoDB server');
 
-        var vars = req.post.params;
-        
-        var collection = "places";
-        var document = {"name": vars['name']};
+        var collection = 'places';
+        var document = { "name": req.body.name }
 
         dbops.insertDocument(db, collection, document, function(){
-            // dbops.findDocuments(db, collection, function(docs){
-            //     res.render('places', {places: docs});
-            // });
-            console.log('New document added to the db');
+            console.log('New place ' + req.body.name + ' added to the db');
+            res.redirect('/places');
         });
         db.close();
     });
