@@ -4,9 +4,9 @@
 
 GET /  
 GET /vote  
-POST /vote {"place-id":number}  
+POST /vote/add {"place-id":number}  
 GET /places  
-POST /places {"name":"place_name","address":"place_address","info":"some_notes"}  
+POST /places/add {"name":"place_name","address":"place_address","info":"some_notes"}  
 GET /places/id  
 PUT /places/id {"id":"place_id","name":"place_name","address":"place_address","info":"some_notes"}  
 DELETE /places/id  
