@@ -53,7 +53,7 @@ app.post('/places/add', function(req, res, next){
         console.log('Connected to the MongoDB server');
 
         var collection = 'places';
-        var document = { "name": req.body.name }
+        var document = { "name": req.body.name };
 
         dbops.insertDocument(db, collection, document, function(){
             console.log('New place ' + req.body.name + ' added to the db');
