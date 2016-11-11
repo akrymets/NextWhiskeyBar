@@ -16,4 +16,5 @@ script:
   - npm test
 after_success:
   - docker build -t akrymets/nwb:${DOCKER_IMG_VER} .
+  - docker login --username ${DOCKER_HUB_ACCOUNT} --password ${DOCKER_HUB_PASSWORD}
   - docker push akrymets/nwb:${DOCKER_IMG_VER}

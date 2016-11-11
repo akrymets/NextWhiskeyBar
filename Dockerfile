@@ -21,7 +21,7 @@ RUN apt-get update && \
     curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - && \
     apt-get install -y nodejs && \
     npm install -g n && \
-    npm install -g pm2 && \
+#    npm install -g pm2 && \
     /usr/bin/n v5.10.1 \
     cd /dev/app/
 
