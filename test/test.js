@@ -12,12 +12,12 @@ describe('My test test', function() {
 	});
 
 	describe('Test #3', function(){
-		it('Will return true when query is non empty', function(){
+		it('Will fail if query is empty', function(){
 			mongoClient.connect(url, function(err, db){
 				assert.equal(err, null);
 				console.log('Test connection to MongoDB server is successful');
 				dbops.findDocuments(db, 'places', function(docs){
-					assert.equal(false, docs);
+					assert.equal(false, docs === '{}');
 				});
 				db.close();
 			});
