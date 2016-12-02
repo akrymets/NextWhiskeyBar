@@ -20,7 +20,7 @@ var dbserver = process.env.MONGODB_SERVER;
 var dbport = process.env.MONGODB_PORT;
 var dbname = process.env.DB_NAME;
 
-var url = 'mongodb://localhost:27017/nwb';
+var url = 'mongodb://' + dbserver + ':' + dbport + '/' + dbname;
 
 var port = 3000;
 var host = 'localhost';
