@@ -16,6 +16,10 @@ var dbops = require('./modules/dbops');
 var pug = require('pug');
 
 // MongoDB connection url
+var dbserver = process.env.MONGODB_SERVER;
+var dbport = process.env.MONGODB_PORT;
+var dbname = process.env.DB_NAME;
+
 var url = 'mongodb://localhost:27017/nwb';
 
 var port = 3000;
