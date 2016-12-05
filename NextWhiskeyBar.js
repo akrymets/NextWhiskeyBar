@@ -21,6 +21,7 @@ var dbport = process.env.MONGODB_PORT;
 var dbname = process.env.DB_NAME;
 
 var url = 'mongodb://' + dbserver + ':' + dbport + '/' + dbname;
+console.log('mongodb: ' + url);
 
 var port = 3000;
 var host = 'localhost';
