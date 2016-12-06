@@ -94,4 +94,4 @@ app.get('/log', function(req, res, next){
 
 app.use(express.static(__dirname + '/public'));
 
-app.listen(port, host, 'Server is up');
+app.listen(port);
