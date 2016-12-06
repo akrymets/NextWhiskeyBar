@@ -10,15 +10,14 @@ env:
     - MONGODB_SERVER=localhost
     - MONGODB_PORT=27017
     - DB_NAME=nwb
-    - DOCKER_IMG_VER=$TRAVIS_PULL_REQUEST
     - DOCKER_HUB_ACCOUNT=akrymets
     - secure: "UHsNu3Bw8iTjAoktgXktLuAjyA9v4BMdCdn4q2pHL181SOQ2h9w282Gv3B7pffkKRgYILnPWT5m1udqzxzYdGYd1O7OCoF8aVNzQnp8ESVVPwOIXeamVcqpblzWTMBT63OU7H7zknLLeCl98ICP9kD70W5r8M3bH6lLEXNn7LgV+19KHtArLCwn4ZPvybP9AkfO4lE4YL/o5RbyjRbti2WInx9S1+cRdT2kmTjNLPfJgshtH89QD/bFSfbgqXEuNbrfjidKBFId8EwQ2zFFTD0Z4/28CrtUlsjN8TIbE8UK0tJ8+8ktsnaZY2/fYFT5KqbIa4JM4tq8OCn4K6K3xxwC8gQ/U3QGO3WR8ycYH6P1D9t47ngSOLnrPw5QpS7CUx1TdF8FhlY2+r3X4zFamST6EDYgzJjZbOpQSbbgno3wf0J3SBdnLP2dOwLp4W7asssuv+Cxhi0V4m7k/nfhPd7Rk7zhtYx1gQKN4RKcXalioG6fjNbsrlvAjcOC3w/zvCxVtg2EG4ol9xecx+l2VqcnWIlZMaOV8JmhNA9rXkPyQAICuvzyhCnGCnRkDZIz8yFq7PjEa8iLyErQjRdBzGRuCemah7QQsKQdeU0Z3ODv8FP5EzsCbdNEJi8D5RpBq0+z0pGxeAjOKwpk9VMnCfafP1Y8/qZ1GJUuYHSlv7M4="
 before_script:
   - npm install
 script:
 # Determining tag for docker image to be baked and pushed to the registry
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export DOCKER_IMG_VER="$TRAVIS_PULL_REQUEST"; fi'
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then export DOCKER_IMG_VER=$(date +%s); fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export DOCKER_IMG_VER=${TRAVIS_EVENT_TYPE}_${TRAVIS_PULL_REQUEST}_${TRAVIS_COMMIT}; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then export DOCKER_IMG_VER=${TRAVIS_EVENT_TYPE}_${TRAVIS_COMMIT}; fi'
 # Testing
   - npm test
 after_success:
