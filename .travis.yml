@@ -16,6 +16,7 @@ env:
 before_script:
   - npm install
 script:
+# Determining tag for docker image to be baked and pushed to the registry
   - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export DOCKER_IMG_VER="$TRAVIS_PULL_REQUEST"; fi'
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then export DOCKER_IMG_VER=$(date +%s); fi'
 # Testing
