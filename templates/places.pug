@@ -1,27 +1,30 @@
 doctype html
 html
     head
-        title Places page
+        title Заведения 
         link(rel='stylesheet', type='text/css', href='styles/main.css')
     body
-        h2 List of known places
-        ul
-        each place in places
-            li
-                a(href='/places/' + place['_id'])= place['name']
-        h2 Add a new place
+        h2 Список заведений
+        table
+            each place in places
+                tr
+                    td    
+                        a(href='/places/' + place['_id'])= place['name']
+                    td
+                        a(href='/places/delete/' + place['_id'])= 'x'
+        h2 Добавить заведение
         form(action='/places/add', method='POST')
             table
                 tr
                     td
-                        label(for='name') Name
+                        label(for='name') Название
                     td        
-                        input(type='edit', name='name', placeholder='Input name')
+                        input(type='edit', name='name', placeholder='Введите название')
                 tr
                     td
-                        label(for='dist') Dist
+                        label(for='dist') Удаленность в км
                     td
-                        input(type='edit', name='dist', placeholder='Input distance')
+                        input(type='edit', name='dist', placeholder='Сколько пилить?')
                 tr
                     td(colspan=2)
-                        input(type='submit', value='Save')
+                        input(type='submit', value='Добавить')
