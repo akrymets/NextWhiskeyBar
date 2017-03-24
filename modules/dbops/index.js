@@ -1,14 +1,25 @@
 var assert = require('assert');
 
+// Read all documents from a collection
 var findDocuments = function (db, collection, callback){
     db.collection(collection).find({}).toArray(function(err, docs){
         assert.equal(err, null);
-        console.log('Read from db');
+        console.log('Documents were read from db');
         callback(docs);
     });
     
 };
 
+// Read a single document from a collection
+var findDocument = function (db, collection, doc_id, callback){
+    db.collection(collection).findOne({_id: doc_id}, function(err, doc){
+        assert.equal(err, null);
+        console.log('The document ' + doc_id + ' was read from db');
+        callback(doc);
+    });
+};
+
+// Add document to db
 var insertDocument = function (db, collection, document, callback) {
     db.collection(collection).insert(document, function(err, result){
         assert.equal(err, null);
@@ -18,18 +29,7 @@ var insertDocument = function (db, collection, document, callback) {
 };
 
 
-// var insertDocumentTest = function (db, callback) {
-//     var doc = {"name": "test"};
-//     db.collection("places").insert(doc, function(err, result){
-//         assert.equal(err, null);
-//         console.log("Successfuly saved to db - test");
-//         callback(result);
-//     });
-// };
-
 exports.findDocuments = findDocuments;
+exports.findDocument = findDocument;
 exports.insertDocument = insertDocument;
 // exports.insertDocumentTest = insertDocumentTest;
-
-
-

@@ -59,7 +59,15 @@ app.get('/places', function(req, res, next){
 });
 
 app.get('/places/:place_id', function(req, res, next){
-    res.send('Will return a short description of a particular place with id ' + req.params.place_id);
+    //res.send('Will return a short description of a particular place with id ' + req.params.place_id);
+    mongoClient.connect(url, function(err, db){
+        assert.equal(err, null);
+        console.log('Connected to the MongoDB server');
+        dbops.findDocument(db, 'places', req.params.place_id, function(doc){
+          res.render('places', {places: doc});
+        });
+        db.close();
+    });
 });
 
 // Adding new places to the db
