@@ -16,9 +16,20 @@ var dbops = require('./modules/dbops');
 var pug = require('pug');
 
 // MongoDB connection url
-var dbserver = process.env.MONGODB_SERVER;
-var dbport = process.env.MONGODB_PORT;
-var dbname = process.env.DB_NAME;
+//var dbserver = process.env.MONGODB_SERVER;
+//var dbport = process.env.MONGODB_PORT;
+//var dbname = process.env.DB_NAME;
+
+var dbserver = "localhost";
+var dbport = 27017;
+var dbname = "nwb";
+if (process.env.MONGODB_SERVER)
+    dbserver = process.env.MONGODB_SERVER;
+if (process.env.MONGODB_PORT)
+    dbport = process.env.MONGODB_PORT;
+if (process.env.DB_NAME)
+    dbname = process.env.DB_NAME
+
 
 var url = 'mongodb://' + dbserver + ':' + dbport + '/' + dbname;
 console.log('mongodb: ' + url);
