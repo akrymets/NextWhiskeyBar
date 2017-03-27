@@ -1,4 +1,5 @@
 var assert = require('assert');
+var ObjectID = require('mongodb').ObjectID;
 
 // Read all documents from a collection
 var findDocuments = function (db, collection, callback){
@@ -12,9 +13,9 @@ var findDocuments = function (db, collection, callback){
 
 // Read a single document from a collection
 var findDocument = function (db, collection, doc_id, callback){
-    db.collection(collection).findOne({_id: doc_id}, function(err, doc){
+    db.collection(collection).findOne({"_id": ObjectID(doc_id)}, function(err, doc){
         assert.equal(err, null);
-        console.log('The document ' + doc_id + ' was read from db');
+        console.log('Place with name ' + doc["name"] + ' was found in db');
         callback(doc);
     });
 };

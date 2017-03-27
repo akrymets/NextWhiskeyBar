@@ -11,6 +11,7 @@ var express = require('express');
 var errorHandler = require('errorhandler');
 var bodyParser = require('body-parser');
 var mongoClient = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID
 var assert = require('assert');
 var dbops = require('./modules/dbops');
 var pug = require('pug');
@@ -64,7 +65,7 @@ app.get('/places/:place_id', function(req, res, next){
         assert.equal(err, null);
         console.log('Connected to the MongoDB server');
         dbops.findDocument(db, 'places', req.params.place_id, function(doc){
-          res.render('places', {places: doc});
+          res.render('place', doc);
         });
         db.close();
     });
