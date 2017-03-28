@@ -4,4 +4,10 @@ html
         title A particular place's page
         link(rel='stylesheet', type='text/css', href='/styles/main.css')
     body
-        div doc['name']
+        h2 Place's description
+            div
+                =_id
+            div
+                =name
+            div
+                a(href="javascript:history.back()") << Back
